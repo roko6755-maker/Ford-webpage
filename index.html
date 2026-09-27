@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ford</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    header {
+      padding: 16px;
+      background: #f1f1f1;
+    }
+
+    nav { display: flex; justify-content: center; gap: 20px; }
+
+    .slideshow {
+      width: min(900px, calc(100% - 32px));
+      margin: 24px auto;
+    }
+
+    .photo-area {
+      position: relative;
+    }
+
+    #car-photo {
+      display: block;
+      width: 100%;
+      height: 520px;
+      object-fit: contain;
+      background: #eeeeee;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 52px;
+      height: 52px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.65);
+      color: white;
+      font-size: 32px;
+      cursor: pointer;
+    }
+
+    .arrow:hover { background: #003478; }
+    .previous { left: 16px; }
+    .next { right: 16px; }
+
+    @media (max-width: 600px) {
+      #car-photo { height: 360px; }
+      .arrow { width: 44px; height: 44px; font-size: 27px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Ford</h1>
+    <nav>
+      <a href="models.html">Models</a>
+      <a href="history.html">History</a>
+    </nav>
+  </header>
+
+  <main class="slideshow">
+    <h2>Ford cars</h2>
+    <div class="photo-area">
+      <img id="car-photo" src="https://commons.wikimedia.org/wiki/Special:FilePath/Seventh_generation_2024_Ford_Mustang.jpg" alt="A 2024 Ford Mustang">
+      <button class="arrow previous" onclick="showPrevious()" aria-label="Previous car">&#8592;</button>
+      <button class="arrow next" onclick="showNext()" aria-label="Next car">&#8594;</button>
+    </div>
+    <p id="car-name">Ford Mustang</p>
+  </main>
+
+  <script>
+    const cars = [
+      {
+        name: "Ford Mustang",
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/Seventh_generation_2024_Ford_Mustang.jpg",
+        description: "A 2024 Ford Mustang"
+      },
+      {
+        name: "Ford Bronco",
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/2021_Ford_Bronco_(51492635983).jpg",
+        description: "A 2021 Ford Bronco"
+      },
+      {
+        name: "Ford F-150",
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/2021_Ford_F-150_Double_Cab.jpg",
+        description: "A 2021 Ford F-150"
+      },
+      {
+        name: "Ford Explorer",
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Explorer_2020.jpg",
+        description: "A 2020 Ford Explorer"
+      }
+    ];
+
+    let currentCar = 0;
+
+    function showCar(index) {
+      currentCar = index;
+      document.getElementById("car-photo").src = cars[currentCar].image;
+      document.getElementById("car-photo").alt = cars[currentCar].description;
+      document.getElementById("car-name").textContent = cars[currentCar].name;
+    }
+
+    function showNext() {
+      showCar((currentCar + 1) % cars.length);
+    }
+
+    function showPrevious() {
+      showCar((currentCar - 1 + cars.length) % cars.length);
+    }
+  </script>
+</body>
+</html>
